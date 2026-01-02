@@ -44,8 +44,8 @@ public class SecurityConfig {
             .cors(Customizer.withDefaults()) // Uses the corsConfigurationSource bean below
             .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                // Allow everything for debugging connection issues
-                .anyRequest().permitAll()
+                .requestMatchers("/", "/healthz", "/api/auth/**", "/h2-console/**").permitAll()
+                .anyRequest().authenticated()
             )
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
