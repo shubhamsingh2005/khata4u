@@ -11,5 +11,9 @@ COPY --from=build /app/build/libs/*.jar app.jar
 
 EXPOSE 8080
 
-# Force binding to 0.0.0.0 and port 8080
-ENTRYPOINT ["java", "-XX:TieredStopAtLevel=1", "-Dserver.port=8080", "-Dserver.address=0.0.0.0", "-Dspring.profiles.active=prod", "-jar", "app.jar"]
+# Optimizations for Render Free Tier (Limited RAM & CPU):
+# 1. -XX:TieredStopAtLevel=1: Faster startup by limiting JIT compilation tiers.
+# 2. -Dspring.main.lazy-initialization=true: Only initialize beans when needed (huge startup speedup).
+# 3. -XX:MaxRAMPercentage=75.0:  Prevent OOM kills by staying within container memory limits (512MB).
+# 4. -Dserver.address=0.0.0.0: Bind to all interfaces (required for Render).
+ENTRYPOINT ["java", "-XX:TieredStopAtLevel=1", "-XX:MaxRAMPercentage=75.0", "-Dspring.main.lazy-initialization=true", "-Dserver.port=8080", "-Dserver.address=0.0.0.0", "-Dspring.profiles.active=prod", "-jar", "app.jar"]
