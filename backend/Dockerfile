@@ -1,26 +1,16 @@
 # --- Stage 1: Build the Application ---
-# We use the official Gradle image to build the app
 FROM gradle:8.5-jdk17-alpine AS build
 WORKDIR /app
-
-# Copy project files
 COPY --chown=gradle:gradle . .
-
-# Build the JAR (Skip tests to save time)
 RUN gradle bootJar -x test --no-daemon
 
 # --- Stage 2: Run the Application ---
-# We use a tiny Java runtime for the final image
 FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
-
-# Copy the JAR from the build stage
 COPY --from=build /app/build/libs/*.jar app.jar
 
-# Expose port 8080
 EXPOSE 8080
 
-# Run the app with Prod profile and startup optimizations
-# -noverify: Skips bytecode verification (faster startup)
-# -XX:TieredStopAtLevel=1: Optimizes C1 compiler for faster startup
-ENTRYPOINT ["java", "-noverify", "-XX:TieredStopAtLevel=1", "-Dserver.port=8080", "-Dspring.profiles.active=prod", "-jar", "app.jar"]
+# Force binding to 0.0.0.0 and port 8080
+# Removed deprecated -noverify option
+ENTRYPOINT ["java", "-XX:TieredStopAtLevel=1", "-Dserver.port=8080", "-Dserver.address=0.0.0.0", "-Dspring.profiles.active=prod", "-jar", "app.jar"]
