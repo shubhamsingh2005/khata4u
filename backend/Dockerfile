@@ -15,11 +15,12 @@ FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
 
 # Copy the JAR from the build stage
-# Note: Spring Boot Gradle plugin creates the jar in build/libs/
 COPY --from=build /app/build/libs/*.jar app.jar
 
-# Expose port 8080 (Good practice, though Render ignores this and sets its own env var)
+# Expose port 8080
 EXPOSE 8080
 
-# Run the app with Prod profile and bind to port 8080
-ENTRYPOINT ["java", "-Dserver.port=8080", "-Dspring.profiles.active=prod", "-jar", "app.jar"]
+# Run the app with Prod profile and startup optimizations
+# -noverify: Skips bytecode verification (faster startup)
+# -XX:TieredStopAtLevel=1: Optimizes C1 compiler for faster startup
+ENTRYPOINT ["java", "-noverify", "-XX:TieredStopAtLevel=1", "-Dserver.port=8080", "-Dspring.profiles.active=prod", "-jar", "app.jar"]
