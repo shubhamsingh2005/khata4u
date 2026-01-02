@@ -6,6 +6,6 @@
         <item>Admin</item>
     </string-array>
 
-    <!-- Base URL for the API. Default points to emulator host (10.0.2.2). Change to your machine IP (e.g., http://10.116.77.30:8085) when testing on a physical device. -->
-    <string name="api_base_url">http://10.0.2.2:8085</string>
+    <!-- Base URL for the API. Points to the live Render deployment. -->
+    <string name="api_base_url">https://khata4u-api.onrender.com</string>
 </resources>

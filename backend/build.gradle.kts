@@ -8,10 +8,12 @@ plugins {
 
 group = "com.khata4u"
 version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_21
 
-repositories {
-    mavenCentral()
+// Use Gradle Toolchain to automatically provision Java 21 for this module
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
+    }
 }
 
 dependencies {
