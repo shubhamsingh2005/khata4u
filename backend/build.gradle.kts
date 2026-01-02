@@ -16,10 +16,6 @@ java {
     }
 }
 
-repositories {
-    mavenCentral()
-}
-
 dependencies {
     // Core Spring Boot starters
     implementation("org.springframework.boot:spring-boot-starter-web")

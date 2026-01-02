@@ -12,9 +12,7 @@ pluginManagement {
     }
 }
 dependencyResolutionManagement {
-    // Changed from FAIL_ON_PROJECT_REPOS to PREFER_SETTINGS to allow subprojects (like backend) 
-    // to declare repositories for standalone Docker builds without breaking the local build.
-    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
         mavenCentral()
