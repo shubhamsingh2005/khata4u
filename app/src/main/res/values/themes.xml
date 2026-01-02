@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Use an AppCompat-based theme so AppCompatActivity works correctly -->
+    <style name="Theme.Khata4U" parent="Theme.AppCompat.Light.NoActionBar" />
+</resources>

@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Khata4U</string>
+    <string-array name="user_types">
+        <item>Customer</item>
+        <item>Shop Owner</item>
+        <item>Admin</item>
+    </string-array>
+
+    <!-- Base URL for the API. Default points to emulator host (10.0.2.2). Change to your machine IP (e.g., http://10.116.77.30:8085) when testing on a physical device. -->
+    <string name="api_base_url">http://10.0.2.2:8085</string>
+</resources>

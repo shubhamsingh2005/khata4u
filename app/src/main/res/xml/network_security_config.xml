@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!-- Development helper: allow cleartext for all domains while testing on local network.
+         IMPORTANT: Revert to a stricter policy (HTTPS-only) before production release. -->
+    <base-config cleartextTrafficPermitted="true" />
+</network-security-config>
